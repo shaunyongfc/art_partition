@@ -35,3 +35,5 @@ coverage.xml
 *.mo
 
 .DS_Store
+test/
+processed_test/
