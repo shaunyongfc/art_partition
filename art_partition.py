@@ -1,6 +1,8 @@
-# Add faint lines to partition images as guide lines for art practice.
-# Will add blank space to fit standard paper ratio.
+# Add faint lines to partition images as guide lines for drawing practice.
+# Pad blank space to fit standard paper ratio.
 # Usage: python art_partition.py FILE_PATH [HORIZONTAL] [VERTICAL]
+# 4 Partitions by default.
+# Vertical partitions same as horizontal partitions by default.
 # If a directory is given, all the image files in the directory will be processed into a new directory.
 
 import os
@@ -15,7 +17,12 @@ IMAGE_RATIO = math.sqrt(2)
 
 def art_partition(file_path, horizontal, vertical):
     """
-    Given file parth
+    Pad blank space to fit standard paper ratio and add faint lines to
+    partition images as guide lines for drawing practice.
+
+    file_path: image file path
+    horizontal: number of horizontal partitions
+    vertical: number of vertical partitions
     """
     try:
         image = Image.open(file_path)
@@ -83,7 +90,7 @@ def art_partition(file_path, horizontal, vertical):
 
     # Save image
     new_image.alpha_composite(line_layer)
-    new_image.save(f"processed_{file_path}")
+    new_image.save(f"processed_{file_path}") # New file or directory
     print(f"Processed and saved {file_path}.")
 
 
@@ -111,4 +118,6 @@ if __name__ == '__main__':
             except OSError:
                 pass
             for file_name in os.listdir(file_path):
-                art_partition(os.path.join(file_path, file_name), horizontal, vertical)
+                art_partition(
+                    os.path.join(file_path, file_name), horizontal, vertical
+                )
