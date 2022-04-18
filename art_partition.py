@@ -103,11 +103,11 @@ if __name__ == '__main__':
     else:
         file_path = sys.argv[1]
         if len(sys.argv) > 2:
-            horizontal = sys.argv[2]
+            horizontal = int(sys.argv[2])
         else:
             horizontal = 4
         if len(sys.argv) > 3:
-            vertical = sys.argv[3]
+            vertical = int(sys.argv[3])
         else:
             vertical = None
         if os.path.isfile(file_path):
