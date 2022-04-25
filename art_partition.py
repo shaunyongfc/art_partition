@@ -1,7 +1,7 @@
 # Add faint lines to partition images as guide lines for drawing practice.
 # Pad blank space to fit standard paper ratio.
 # Usage: python art_partition.py FILE_PATH [HORIZONTAL] [VERTICAL]
-# 4 Partitions by default.
+# 7 Partitions by default.
 # Vertical partitions same as horizontal partitions by default.
 # If a directory is given, all the image files in the directory will be processed into a new directory.
 
@@ -72,7 +72,7 @@ def art_partition(file_path, horizontal, vertical):
     # Draw partition lines
     line_width = max(2, round(new_width / 200), round(new_height / 200))
     line_layer = Image.new(
-        image.mode, (new_width, new_height), color = (255, 255, 255, 0)
+        "RGBA", (new_width, new_height), color = (255, 255, 255, 0)
     )
     if vertical == None: # If unspecified
         vertical = horizontal
@@ -89,7 +89,12 @@ def art_partition(file_path, horizontal, vertical):
         )
 
     # Save image
-    new_image.alpha_composite(line_layer)
+    if new_image.mode == "RGBA":
+        new_image.alpha_composite(line_layer)
+    else:
+        new_image = new_image.convert("RGBA")
+        new_image.alpha_composite(line_layer)
+        new_image = new_image.convert("RGB")
     new_image.save(f"processed_{file_path}") # New file or directory
     print(f"Processed and saved {file_path}.")
 
@@ -105,7 +110,7 @@ if __name__ == '__main__':
         if len(sys.argv) > 2:
             horizontal = int(sys.argv[2])
         else:
-            horizontal = 4
+            horizontal = 7
         if len(sys.argv) > 3:
             vertical = int(sys.argv[3])
         else:
